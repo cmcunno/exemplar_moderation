@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Add Moderation Hub</title>
+<style>
+  body{margin:0;padding:24px;font-family:"Segoe UI",system-ui,sans-serif;color:#16202D;background:#fff}
+  @media (prefers-color-scheme: dark){body{color:#E5E9EF;background:#151C26}}
+  h1{font-size:1.2rem;margin:0 0 8px}
+  p{margin:0;max-width:60ch;line-height:1.5}
+</style>
+</head>
+<body>
+<h1>Moderation Hub</h1>
+<p>Select <b>Save</b> to add the Moderation Hub as a tab in this channel. Everyone in the team signs in with their own school account.</p>
+<script src="lib/MicrosoftTeams.min.js"></script>
+<script>
+  microsoftTeams.app.initialize().then(function () {
+    var base = location.href.replace(/config\.html.*$/, '');
+    microsoftTeams.pages.config.registerOnSaveHandler(function (evt) {
+      microsoftTeams.pages.config.setConfig({
+        entityId: 'moderation-hub',
+        contentUrl: base + 'index.html',
+        websiteUrl: base + 'index.html',
+        suggestedDisplayName: 'Moderation Hub'
+      }).then(function () { evt.notifySuccess(); }, function (e) { evt.notifyFailure(String(e)); });
+    });
+    microsoftTeams.pages.config.setValidityState(true);
+  });
+</script>
+</body>
+</html>
